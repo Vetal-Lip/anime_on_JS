@@ -1,4 +1,9 @@
 const mainData = () => {
+  const renderAnimeList = (array, ganres) => {
+    console.log(array);
+    console.log(ganres);
+  };
+
   const renderTopAnime = (array) => {
     const wrapper = document.querySelector(".filter__gallery");
     wrapper.innerHTML = "";
@@ -25,7 +30,14 @@ const mainData = () => {
       return response.json();
     })
     .then((data) => {
+      const ganres = new Set();
       renderTopAnime(data.sort((a, b) => b.views - a.views).slice(0, 5));
+
+      data.forEach((item) => {
+        ganres.add(item.ganre);
+      });
+
+      renderAnimeList(data, ganres);
     });
 };
 
